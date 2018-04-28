@@ -1,0 +1,23 @@
+{
+  "name": "github-pr-lister",
+  "version": "1.0.0",
+  "description": "A crappy webapp that lists Github PRs",
+  "scripts": {
+    "server": "node node/app.js -c config/app.json",
+    "lint-server": "eslint -c .eslintrc-server.js node",
+    "lint": "npm run lint-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dkwasny/github-pr-lister.git"
+  },
+  "author": "David Kwasny",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dkwasny/github-pr-lister/issues"
+  },
+  "homepage": "https://github.com/dkwasny/github-pr-lister#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1"
+  }
+}
