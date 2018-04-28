@@ -4,8 +4,8 @@
   "description": "A crappy webapp that lists Github PRs",
   "scripts": {
     "server": "node node/app.js -c config/app.json",
-    "lint-server": "eslint -c .eslintrc-server.js node",
-    "lint": "npm run lint-server"
+    "lint-node": "eslint -c .eslintrc-node.js node",
+    "lint": "npm run lint-node"
   },
   "repository": {
     "type": "git",
