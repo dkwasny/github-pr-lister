@@ -1,0 +1,48 @@
+query {
+    search(first:50, type:ISSUE, query:"archived:false is:pr is:open involves:$USERNAME") {
+        nodes {
+            ... on PullRequest {
+                assignees(first:50) {
+                    nodes {
+                        login
+                        avatarUrl(size:50)
+                    }
+                }
+                reviewRequests(first:50) {
+                    nodes {
+                        requestedReviewer {
+                            ... on User {
+                                login
+                                avatarUrl(size:50)
+                            }
+                        }
+                    }
+                }
+                reviews(first:50) {
+                    nodes {
+                        author {
+                            login
+                            avatarUrl(size:50)
+                        }
+                        state
+                    }
+                }
+                author {
+                    login
+                    avatarUrl(size:50)
+                }
+                repository {
+                    name
+                }
+                title
+                url
+            }
+        }
+    }
+    rateLimit {
+        limit
+        cost
+        remaining
+        resetAt
+    }
+}

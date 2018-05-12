@@ -1,5 +1,11 @@
 {
     "port": 8080,
     "contentDir": "content",
-    "handlerDir": "node/handlers"
+    "handlerDir": "node/handlers",
+
+    "githubGqlUrl": "https://api.github.com/graphql",
+    "githubUsername": "<username>",
+    "githubToken": "<token>",
+
+    "pullRequestGql": "config/pullrequests.gql"
 }

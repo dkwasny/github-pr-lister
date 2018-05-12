@@ -64,7 +64,7 @@ function handleResource(path, request, response) {
     fsModule.readFile(path, callback);
 }
 
-module.exports.createServer = (port, handlerDir, contentDir) => {
+module.exports.createServer = (port, handlerDir, contentDir, context) => {
     const absHandlerDir = pathModule.resolve(handlerDir);
     const endpointMap = createEndpointMap(absHandlerDir);
     const absContentDir = pathModule.resolve(contentDir);
@@ -77,7 +77,7 @@ module.exports.createServer = (port, handlerDir, contentDir) => {
             handleResource(absResourcePath, request, response);
         }
         else {
-            possibleEndpoint(request, response);
+            possibleEndpoint(request, response, context);
         }
     };
     const server = httpModule.createServer(httpHandler);
