@@ -12,6 +12,7 @@ function request(url, token, userAgent, query, variables, callback) {
 
     let responseBody = '';
     const httpCallback = (resp) => {
+        // TODO: What if a bad code comes back?
         resp.setEncoding('utf8');
         resp.on('readable', () => {
             responseBody += resp.read();

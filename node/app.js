@@ -4,10 +4,12 @@ const fsModule = require('fs');
 const urlModule = require('url');
 
 const argParser = cliModule.createArgParser({
-    c: true
+    c: true,
+    s: true
 });
 
 const args = argParser(process.argv);
+
 const configFile = args.c;
 if (configFile === undefined) {
     throw 'Config file required';
@@ -15,10 +17,17 @@ if (configFile === undefined) {
 const rawConfig = fsModule.readFileSync(configFile);
 const jsonConfig = JSON.parse(rawConfig);
 
+const secretsFile = args.s;
+if (secretsFile === undefined) {
+    throw 'Secrets file required';
+}
+const rawSecrets = fsModule.readFileSync(secretsFile);
+const secrets = JSON.parse(rawSecrets);
+
 const port = parseInt(jsonConfig.port);
 const handlerDir = jsonConfig.handlerDir;
 const contentDir = jsonConfig.contentDir;
-const githubUsername = jsonConfig.githubUsername;
+const githubUsername = secrets.githubUsername;
 
 const githubGqlUrl = new urlModule.URL(jsonConfig.githubGqlUrl);
 const pullRequestGqlFile = jsonConfig.pullRequestGql;
@@ -33,7 +42,7 @@ const pullRequestGql = rawPullRequestGql
 const context = {
     pullRequestGql: pullRequestGql,
     githubGqlUrl: githubGqlUrl,
-    githubToken: jsonConfig.githubToken,
+    githubToken: secrets.githubToken,
     githubUsername: githubUsername
 };
 

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A crappy webapp that lists Github PRs",
   "scripts": {
-    "server": "node node/app.js -c config/app.json",
+    "server": "node node/app.js -c config/app.json -s config/secrets.json",
     "lint-node": "eslint -c .eslintrc-node.js node",
     "lint": "npm run lint-node"
   },
