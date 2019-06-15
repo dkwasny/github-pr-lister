@@ -1,5 +1,5 @@
 const cliModule = require('./cli.js');
-const serverModule = require('./server.js');
+const serverModule = require('./server/server.js');
 const fsModule = require('fs');
 const urlModule = require('url');
 
@@ -25,8 +25,8 @@ const rawSecrets = fsModule.readFileSync(secretsFile);
 const secrets = JSON.parse(rawSecrets);
 
 const port = parseInt(jsonConfig.port);
-const handlerDir = jsonConfig.handlerDir;
-const contentDir = jsonConfig.contentDir;
+const endpointDir = jsonConfig.endpointDir;
+const resourceDir = jsonConfig.resourceDir;
 const githubUsername = secrets.githubUsername;
 
 const githubGqlUrl = new urlModule.URL(jsonConfig.githubGqlUrl);
@@ -46,5 +46,5 @@ const context = {
     githubUsername: githubUsername
 };
 
-serverModule.createServer(port, handlerDir, contentDir, context);
+serverModule.createServer(port, endpointDir, resourceDir, context);
 console.log('App Started');

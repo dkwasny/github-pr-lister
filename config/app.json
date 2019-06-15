@@ -1,7 +1,7 @@
 {
     "port": 8080,
-    "contentDir": "content",
-    "handlerDir": "node/handlers",
+    "resourceDir": "resources",
+    "endpointDir": "node/endpoints",
 
     "githubGqlUrl": "https://api.github.com/graphql",
     "pullRequestGql": "config/pullrequests.gql"

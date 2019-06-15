@@ -22,6 +22,6 @@ function pullrequests(request, response, context) {
     );
 }
 
-module.exports.endpoints = {
+module.exports.paths = {
     '/pullrequests': pullrequests
 };
