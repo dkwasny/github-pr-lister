@@ -10,12 +10,12 @@ function request(url, token, userAgent, query, variables, callback) {
         httpImpl = httpModule;
     }
 
-    let responseBody = '';
     const httpCallback = (resp) => {
+        let responseBody = '';
         // TODO: What if a bad code comes back?
         resp.setEncoding('utf8');
-        resp.on('readable', () => {
-            responseBody += resp.read();
+        resp.on('data', (chunk) => {
+            responseBody += chunk;
         });
         resp.on('end', () => {
             callback(responseBody);

@@ -6,7 +6,6 @@ const pathModule = require('path');
 const baseUrl = 'http://fake';
 
 const codeFileNotFound = 'ENOENT';
-const codeDirNotFound = 'ENOTDIR';
 
 const httpCodeNotFound = 404;
 const httpCodeServerError = 500;
@@ -36,32 +35,59 @@ function createEndpointMap(handlerDir) {
 }
 
 function handleResource(path, request, response) {
-    const callback = (err, data) => {
+    const respond = (code, data) => {
+        response.statusCode = code;
+        response.write(data);
+        response.end();
+    };
+
+    const handleError = (errCode) => {
+        let responseCode = null;
+        let responseData = null;
+        if (errCode === codeFileNotFound) {
+            responseCode = httpCodeNotFound;
+            responseData = '<html>404 dude</html>';
+        }
+        else {
+            responseCode = httpCodeServerError;
+            responseData = '<html>500 bud</html>';
+        }
+        respond(responseCode, responseData);
+    };
+
+    const readFileCallback = (err, data) => {
         let responseCode = null;
         let responseData = null;
         if (err !== null) {
-            console.error(`Error reading resource: ${err}`);
-            const errCode = err.code;
-            if (errCode === codeFileNotFound || errCode === codeDirNotFound) {
-                responseCode = httpCodeNotFound;
-                responseData = '<html>404 dude</html>';
-            }
-            else {
-                responseCode = httpCodeServerError;
-                responseData = '<html>500 bud</html>';
-            }
+            handleError(err.code);
         }
         else {
             responseCode = httpCodeSuccess;
             responseData = data;
+            respond(responseCode, responseData);
         }
-
-        response.statusCode = responseCode;
-        response.write(responseData);
-        response.end();
     };
 
-    fsModule.readFile(path, callback);
+    const attemptPath = (path) => {
+        const statCallback = (err, stats) => {
+            if (err !== null) {
+                handleError(err.code);
+            }
+            else {
+                if (stats.isDirectory()) {
+                    const newPath = path + '/index.html';
+                    attemptPath(newPath);
+                }
+                else {
+                    fsModule.readFile(path, readFileCallback);
+                }
+            }
+        };
+
+        fsModule.stat(path, statCallback);
+    };
+
+    attemptPath(path);
 }
 
 module.exports.createServer = (port, handlerDir, contentDir, context) => {

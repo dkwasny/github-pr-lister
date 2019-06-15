@@ -1,0 +1,34 @@
+#kwas-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: bisque;
+    margin: 0;
+}
+#kwas-header {
+    display: flex;
+    flex: 0 0 50px;
+    flex-direction: row;
+    background-color: brown;
+}
+#kwas-title {
+    flex: auto;
+    background-color: slateblue;
+}
+#kwas-user {
+    flex: 0 0 100px;
+    background-color: dodgerblue;
+}
+#kwas-stuff {
+    display: flex;
+    flex-direction: row;
+    flex: auto;
+    background-color: darkgreen;
+}
+#kwas-selection {
+    flex: 0 0 100px;
+    background-color: gray;
+}
+#kwas-display {
+    flex: auto;
+}
