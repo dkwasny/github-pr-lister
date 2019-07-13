@@ -4,5 +4,7 @@
     "endpointDir": "node/endpoints",
 
     "githubGqlUrl": "https://api.github.com/graphql",
-    "pullRequestGql": "config/pullrequests.gql"
+    "pullRequestGql": "config/pullrequests.gql",
+
+    "cacheTimeoutSeconds": 10
 }

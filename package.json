@@ -5,7 +5,8 @@
   "scripts": {
     "server": "node node/app.js -c config/app.json -s config/secrets.json",
     "lint-node": "eslint -c .eslintrc-node.js node",
-    "lint": "npm run lint-node"
+    "lint-browser": "eslint -c .eslintrc-browser.js resources",
+    "lint": "npm run lint-node && npm run lint-browser"
   },
   "repository": {
     "type": "git",

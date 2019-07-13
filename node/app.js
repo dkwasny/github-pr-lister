@@ -39,11 +39,14 @@ const pullRequestGql = rawPullRequestGql
     .replace(/\r?\n/g, '')
     .replace('$USERNAME', githubUsername);
 
+const cacheTimeoutSeconds = jsonConfig.cacheTimeoutSeconds;
+
 const context = {
     pullRequestGql: pullRequestGql,
     githubGqlUrl: githubGqlUrl,
     githubToken: secrets.githubToken,
-    githubUsername: githubUsername
+    githubUsername: githubUsername,
+    cacheTimeoutSeconds: cacheTimeoutSeconds
 };
 
 serverModule.createServer(port, endpointDir, resourceDir, context);

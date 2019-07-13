@@ -4,20 +4,28 @@
     height: 100%;
     background-color: bisque;
     margin: 0;
+    font: 1rem Arial, sans-serif;
 }
 #kwas-header {
     display: flex;
-    flex: 0 0 50px;
+    flex: 0 0 3rem;
     flex-direction: row;
     background-color: brown;
+    line-height: 3rem;
 }
 #kwas-title {
     flex: auto;
     background-color: slateblue;
+    font-size: 2rem;
+    padding-left: 2rem;
 }
-#kwas-user {
-    flex: 0 0 100px;
+#kwas-username {
+    flex: 0 0 0.1rem;
     background-color: dodgerblue;
+    font-size: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: center;
 }
 #kwas-stuff {
     display: flex;
@@ -26,9 +34,30 @@
     background-color: darkgreen;
 }
 #kwas-selection {
-    flex: 0 0 100px;
+    flex: 0 0 10rem;
     background-color: gray;
 }
 #kwas-display {
     flex: auto;
+    background-color: darkgoldenrod;
+}
+
+.list-container {
+
+}
+.list-item-base {
+    text-align: center;
+    border: 0.2rem solid black;
+    margin: 0.5rem 0 0.5rem 0;
+    line-height: 3rem;
+}
+
+.list-item-selected {
+    border-color: white;
+}
+
+.list-separator {
+    width: 50%;
+    border: 0.1rem solid black;
+    margin: 0 auto;
 }
