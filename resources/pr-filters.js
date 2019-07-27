@@ -1,9 +1,13 @@
 const approvedAction = 'APPROVED';
 const declinedAction = 'CHANGES_REQUESTED';
 
+function isOwnedByUser(pullRequest, username) {
+    return pullRequest.author.username === username;
+}
+
 function getUsersReviews(pullRequest, username) {
     return pullRequest.reviews
-        .filter((x) => x.reviewer.username === username );
+        .filter((x) => x.reviewer.username === username);
 }
 
 function getLatestTimeForAction(pullRequest, username, action) {
@@ -16,7 +20,8 @@ function getLatestTimeForAction(pullRequest, username, action) {
 
 export function newPullRequests(username) {
     return (pullRequest) => {
-        return pullRequest.reviewRequests.some((x) => x.username === username);
+        return !isOwnedByUser(pullRequest, username)
+            && pullRequest.reviewRequests.some((x) => x.username === username);
     };
 }
 
@@ -24,7 +29,8 @@ export function inProgressPullRequests(username) {
     return (pullRequest) => {
         const latestPushTime = pullRequest.latestPushTime;
         const latestDeclineTime = getLatestTimeForAction(pullRequest, username, declinedAction);
-        return !newPullRequests(username)(pullRequest)
+        return !isOwnedByUser(pullRequest, username)
+            && !newPullRequests(username)(pullRequest)
             && !approvedPullRequests(username)(pullRequest)
             && latestPushTime > latestDeclineTime;
     };
@@ -34,7 +40,8 @@ export function approvedPullRequests(username) {
     return (pullRequest) => {
         const latestApprovalTime = getLatestTimeForAction(pullRequest, username, approvedAction);
         const latestDeclineTime = getLatestTimeForAction(pullRequest, username, declinedAction);
-        return latestApprovalTime > latestDeclineTime;
+        return !isOwnedByUser(pullRequest, username)
+            && latestApprovalTime > latestDeclineTime;
     };
 }
 
@@ -42,7 +49,14 @@ export function declinedPullRequests(username) {
     return (pullRequest) => {
         const latestApprovalTime = getLatestTimeForAction(pullRequest, username, approvedAction);
         const latestDeclineTime = getLatestTimeForAction(pullRequest, username, declinedAction);
-        return latestDeclineTime > latestApprovalTime;
+        return !isOwnedByUser(pullRequest, username)
+            && latestDeclineTime > latestApprovalTime;
+    };
+}
+
+export function ownedPullRequests(username) {
+    return (pullRequest) => {
+        return isOwnedByUser(pullRequest, username);
     };
 }
 

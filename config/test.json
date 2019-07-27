@@ -58,7 +58,7 @@
         "latestPushTime": 1526010000000
     },
     {
-        "title": "Changes requested but not updated",
+        "title": "Declined but not updated",
         "url": "https://github.com/dkwasny/pr-test-repo/pull/1",
         "repository": "best-repo",
         "author": {
@@ -85,7 +85,7 @@
         "latestPushTime": 1526020000000
     },
     {
-        "title": "Changes requested and updated",
+        "title": "Declined and updated",
         "url": "https://github.com/dkwasny/pr-test-repo/pull/1",
         "repository": "the-biggest-named-repo-of-all-time",
         "author": {

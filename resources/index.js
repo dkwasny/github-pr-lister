@@ -1,6 +1,6 @@
 import { ListCreator } from './list.js';
 import { renderPullRequests } from './table.js';
-import { newPullRequests, allPullRequests, approvedPullRequests, inProgressPullRequests, declinedPullRequests } from './pr-filters.js';
+import { newPullRequests, allPullRequests, approvedPullRequests, inProgressPullRequests, declinedPullRequests, ownedPullRequests } from './pr-filters.js';
 import { attachColorChangeHandler } from './stylesheet.js';
 
 let cachedUsername = '';
@@ -39,7 +39,8 @@ listCreator.addItem('New', 'New pull requests you have yet to review', newClickH
 listCreator.addItem('In Progress', 'Existing pull requests that need action', newClickHandler(inProgressPullRequests));
 listCreator.addSeparator();
 listCreator.addItem('Approved', 'Pull requests you have approved', newClickHandler(approvedPullRequests));
-listCreator.addItem('Denied', 'Denied pull requests that have no updates', newClickHandler(declinedPullRequests));
+listCreator.addItem('Declined', 'Declined pull requests that have no updates', newClickHandler(declinedPullRequests));
+listCreator.addItem('Owned', 'Pull requests owned by you', newClickHandler(ownedPullRequests));
 listCreator.addSeparator();
 listCreator.addItem('All', 'All pull requests', newClickHandler(allPullRequests));
 
