@@ -1,26 +1,49 @@
-import { createListItem, createListSeparator, applyListObjects } from './list.js';
+import { ListCreator } from './list.js';
+import { renderPullRequests } from './table.js';
+import { newPullRequests, allPullRequests, approvedPullRequests, inProgressPullRequests, declinedPullRequests } from './pr-filters.js';
+import { attachColorChangeHandler } from './stylesheet.js';
 
-function setUsername() {
+let cachedUsername = '';
+
+(function () {
     const request = new XMLHttpRequest();
     request.open('GET', '/api/username');
     request.send();
     request.onload = function() {
         const username = request.response;
-        const usernameElement = document.getElementById('kwas-username');
-        usernameElement.innerText = username;
+        const usernameElement = document.getElementById('username');
+        usernameElement.textContent = username;
+        cachedUsername = username;
+    };
+})();
+
+const displayElement = document.getElementById('pull-requests');
+
+function newClickHandler(filterCreator) {
+    return () => {
+        const request = new XMLHttpRequest();
+        request.open('GET', '/api/pullrequests');
+        request.send();
+        request.onload = function() {
+            const response = request.response;
+            const allPrs = JSON.parse(response);
+            const filter = filterCreator(cachedUsername);
+            const prsToDisplay = allPrs.filter(filter);
+            renderPullRequests(prsToDisplay, displayElement);
+        };
     };
 }
 
-setUsername();
+const listCreator = new ListCreator('menu-');
+listCreator.addItem('New', 'New pull requests you have yet to review', newClickHandler(newPullRequests));
+listCreator.addItem('In Progress', 'Existing pull requests that need action', newClickHandler(inProgressPullRequests));
+listCreator.addSeparator();
+listCreator.addItem('Approved', 'Pull requests you have approved', newClickHandler(approvedPullRequests));
+listCreator.addItem('Denied', 'Denied pull requests that have no updates', newClickHandler(declinedPullRequests));
+listCreator.addSeparator();
+listCreator.addItem('All', 'All pull requests', newClickHandler(allPullRequests));
 
-const selectionElement = document.getElementById('list-container');
-const listObjects = [
-    createListItem('New', 'New pull requests you have yet to review', () => {}),
-    createListItem('In Progress', 'Existing pull requests that need action', () => {}),
-    createListSeparator(),
-    createListItem('Approved', 'Pull requests you have approved', () => {}),
-    createListItem('Denied', 'Denied pull requests that have no updates', () => {}),
-    createListSeparator(),
-    createListItem('All', 'All pull requests', () => {window.alert('all');}),
-];
-applyListObjects(selectionElement, listObjects);
+const selectionElement = document.getElementById('selection');
+listCreator.applyToElement(selectionElement);
+
+attachColorChangeHandler(document.getElementById('username'));

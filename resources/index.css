@@ -1,63 +1,111 @@
-#kwas-body {
+a:link {
+    color: #b58900;
+}
+
+a:visited {
+    color: #cb4b16;
+}
+
+a:hover {
+    color: #cb4b16;
+}
+
+a:active {
+    color: #cb4b16;
+}
+
+button {
+    padding: 0;
+    border: 0;
+}
+
+#root {
     display: flex;
     flex-direction: column;
     height: 100%;
-    background-color: bisque;
     margin: 0;
     font: 1rem Arial, sans-serif;
 }
-#kwas-header {
+#header {
     display: flex;
     flex: 0 0 3rem;
     flex-direction: row;
-    background-color: brown;
     line-height: 3rem;
 }
-#kwas-title {
+#title {
     flex: auto;
-    background-color: slateblue;
     font-size: 2rem;
     padding-left: 2rem;
 }
-#kwas-username {
-    flex: 0 0 0.1rem;
-    background-color: dodgerblue;
-    font-size: 1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    text-align: center;
+#username {
+    flex: 0 0 auto;
+    padding: 0 1rem 0 1rem;
 }
-#kwas-stuff {
+#body {
     display: flex;
     flex-direction: row;
     flex: auto;
-    background-color: darkgreen;
 }
-#kwas-selection {
+#selection {
     flex: 0 0 10rem;
-    background-color: gray;
 }
-#kwas-display {
+#pull-requests {
     flex: auto;
-    background-color: darkgoldenrod;
+    padding: 0.5rem;
 }
 
-.list-container {
-
-}
-.list-item-base {
-    text-align: center;
-    border: 0.2rem solid black;
+.menu-list-item-base {
     margin: 0.5rem 0 0.5rem 0;
     line-height: 3rem;
+    display: block;
+    width: 100%;
 }
-
-.list-item-selected {
-    border-color: white;
+.menu-list-item-selected {
+    color: #268bd2;
 }
-
-.list-separator {
+.menu-list-separator {
     width: 50%;
-    border: 0.1rem solid black;
     margin: 0 auto;
+    border: 0.1rem solid;
+}
+
+.pr-header-container {
+    text-align: left;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+.pr-data-container {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-top: 0.1rem solid;
+    border-bottom: 0.1rem solid;
+}
+.pr-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.pr-image-container {
+    width: 4rem;
+}
+.pr-image {
+    height: 3rem;
+    width: 3rem;
+}
+.pr-repo-name-container {
+    width: 15rem;
+}
+.pr-name-container {
+
+}
+.pr-name {
+ 
+}
+.pr-last-push-container {
+    width: 12rem;
+}
+
+.empty-message {
+    text-align: center;
+    font-size: 5rem;
+    padding: 1rem;
 }

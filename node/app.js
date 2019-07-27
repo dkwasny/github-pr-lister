@@ -41,13 +41,19 @@ const pullRequestGql = rawPullRequestGql
 
 const cacheTimeoutSeconds = jsonConfig.cacheTimeoutSeconds;
 
+const testResponseFile = jsonConfig.testResponseFile;
+
 const context = {
     pullRequestGql: pullRequestGql,
     githubGqlUrl: githubGqlUrl,
     githubToken: secrets.githubToken,
     githubUsername: githubUsername,
-    cacheTimeoutSeconds: cacheTimeoutSeconds
+    cacheTimeoutSeconds: cacheTimeoutSeconds,
+    testResponseFile: testResponseFile
 };
 
-serverModule.createServer(port, endpointDir, resourceDir, context);
+const cspString = 'default-src \'self\';' +
+    ' img-src \'self\' *.githubusercontent.com';
+
+serverModule.createServer(port, endpointDir, resourceDir, context, cspString);
 console.log('App Started');

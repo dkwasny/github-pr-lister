@@ -1,0 +1,15 @@
+#root {
+    background-color: #002b36;
+    color: #839496;
+}
+button {
+    background-color: #073642;
+    color: #839496;
+}
+.menu-list-separator {
+    border-color: #586e75;
+}
+.pr-data-container {
+    border-top-color: #586e75;
+    border-bottom-color: #586e75;
+}

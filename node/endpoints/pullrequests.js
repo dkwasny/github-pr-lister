@@ -1,7 +1,12 @@
+const fsModule = require('fs');
 const gqlClientModule = require('../gql-client.js');
 
 let cachedGqlResponse = '';
 let cachedTime = 0;
+
+function parseTime(input) {
+    return new Date(input).getTime();
+}
 
 function parseUser(input) {
     return {
@@ -13,12 +18,17 @@ function parseUser(input) {
 function parseReview(input) {
     return {
         reviewer: parseUser(input.author),
-        action: input.state
+        action: input.state,
+        time: parseTime(input.submittedAt)
     };
 }
 
 function parseReviewRequest(input) {
     return parseUser(input.requestedReviewer);
+}
+
+function getLatestPushTime(input) {
+    return Math.max(input.map((x) => parseTime(x.commit.pushedDate)));
 }
 
 function parsePR(input) {
@@ -29,7 +39,8 @@ function parsePR(input) {
         author: parseUser(input.author),
         assignees: input.assignees.nodes.map(parseUser),
         reviews: input.reviews.nodes.map(parseReview),
-        reviewRequests: input.reviewRequests.nodes.map(parseReviewRequest)
+        reviewRequests: input.reviewRequests.nodes.map(parseReviewRequest),
+        latestPushTime: getLatestPushTime(input.commits.nodes)
     };
 }
 
@@ -84,7 +95,16 @@ function pullrequestsRaw(request, response, context) {
     callGithub(callback, context);
 }
 
+function pullrequestsTest(request, response, context) {
+    fsModule.readFile(context.testResponseFile, (err, data) => {
+        response.setHeader('Content-Type', 'application/json');
+        response.write(data);
+        response.end();
+    });
+}
+
 module.exports.paths = {
     '/pullrequests': pullrequests,
-    '/pullrequests/raw': pullrequestsRaw
+    '/pullrequests/raw': pullrequestsRaw,
+    '/pullrequests/test': pullrequestsTest
 };

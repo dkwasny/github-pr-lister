@@ -25,6 +25,7 @@ query {
                             avatarUrl(size:50)
                         }
                         state
+                        submittedAt
                     }
                 }
                 author {
@@ -36,6 +37,13 @@ query {
                 }
                 title
                 url
+                commits(first: 100) {
+                    nodes {
+                        commit {
+                            pushedDate
+                        }
+                    }
+                }
             }
         }
     }

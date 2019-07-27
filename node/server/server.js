@@ -6,12 +6,12 @@ const endpointModule = require('./endpoint.js');
 
 const baseUrl = 'http://fake';
 
-module.exports.createServer = (port, handlerDir, contentDir, context) => {
+module.exports.createServer = (port, handlerDir, contentDir, context, cspString) => {
     const absHandlerDir = pathModule.resolve(handlerDir);
     const absContentDir = pathModule.resolve(contentDir);
     const endpointHandler = endpointModule.createEndpointHandler(absHandlerDir, '/api');
     const httpHandler = (request, response) => {
-        response.setHeader('Content-Security-Policy', 'default-src \'self\'');
+        response.setHeader('Content-Security-Policy', cspString);
         const url = new urlModule.URL(request.url, baseUrl);
         const pathname = url.pathname;
         if (endpointHandler.canHandle(pathname)) {

@@ -2,6 +2,7 @@
     "port": 8080,
     "resourceDir": "resources",
     "endpointDir": "node/endpoints",
+    "testResponseFile": "config/test.json",
 
     "githubGqlUrl": "https://api.github.com/graphql",
     "pullRequestGql": "config/pullrequests.gql",

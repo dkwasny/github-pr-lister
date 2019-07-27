@@ -42,11 +42,11 @@ function handleResource(path, request, response) {
         let responseData = null;
         if (errCode === codeFileNotFound) {
             responseCode = httpCodeNotFound;
-            responseData = '<html>404 dude</html>';
+            responseData = '<meta charset="UTF-8"><html>404 dude</html>';
         }
         else {
             responseCode = httpCodeServerError;
-            responseData = '<html>500 bud</html>';
+            responseData = '<meta charset="UTF-8"><html>500 bud</html>';
         }
         respond(responseCode, responseData, 'text/html');
     };
