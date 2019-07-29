@@ -21,6 +21,7 @@ const displayElement = document.getElementById('pull-requests');
 
 function newClickHandler(filterCreator) {
     return () => {
+        displayElement.textContent = 'Loading...';
         const request = new XMLHttpRequest();
         request.open('GET', '/api/pullrequests');
         request.send();
