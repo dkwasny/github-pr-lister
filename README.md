@@ -7,5 +7,6 @@ How to Run
 ----------
 1. Run `npm install`.
 2. Create your own `config/secrets.json` file.
-3. Run `npm run server`.
-4. Hit `http://localhost:8080` in your browser.
+3. Create your own `config/app.json` file.
+4. Run `npm run server`.
+5. Hit `http://localhost:8080` in your browser.

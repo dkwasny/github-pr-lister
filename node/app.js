@@ -53,7 +53,7 @@ const context = {
 };
 
 const cspString = 'default-src \'self\';' +
-    ' img-src \'self\' *.githubusercontent.com';
+    ' img-src *';
 
 serverModule.createServer(port, endpointDir, resourceDir, context, cspString);
 console.log('App Started');
