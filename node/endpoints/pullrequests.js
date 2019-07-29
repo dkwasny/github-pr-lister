@@ -28,7 +28,7 @@ function parseReviewRequest(input) {
 }
 
 function getLatestPushTime(input) {
-    return Math.max(input.map((x) => parseTime(x.commit.pushedDate)));
+    return Math.max(...(input.map((x) => parseTime(x.commit.pushedDate))));
 }
 
 function parsePR(input) {
