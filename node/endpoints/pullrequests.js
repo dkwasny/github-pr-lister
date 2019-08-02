@@ -39,7 +39,9 @@ function parsePR(input) {
         author: parseUser(input.author),
         assignees: input.assignees.nodes.map(parseUser),
         reviews: input.reviews.nodes.map(parseReview),
-        reviewRequests: input.reviewRequests.nodes.map(parseReviewRequest),
+        reviewRequests: input.reviewRequests.nodes
+            .filter((x) => x.requestedReviewer != null)
+            .map(parseReviewRequest),
         latestPushTime: getLatestPushTime(input.commits.nodes)
     };
 }
