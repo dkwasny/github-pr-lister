@@ -19,6 +19,6 @@
   },
   "homepage": "https://github.com/dkwasny/github-pr-lister#readme",
   "devDependencies": {
-    "eslint": "^6.0.1"
+    "eslint": "^8.27.0"
   }
 }
